@@ -1,0 +1,25 @@
+indices_new = indices.copy()  # change
+        indices_labelnum = []
+        index_max_area = 0
+        index_max_label = 0
+        max_label_num = 0
+        min_label_num = 10000
+
+        select_max = 0.1
+        if select_max > random.random():  # select_max+(1-select_max)*0.25
+            for i, index in enumerate(indices):
+                indices_labelnum.append(len(self.labels[index]))
+                if len(self.labels[index]) > max_label_num:
+                    # if len(self.labels[index]) < min_label_num:
+                    max_label_num = len(self.labels[index])
+                    index_max_label = i
+            if yc > s and xc > s:
+                index_max_area = 0  # top left
+            elif yc > s and xc < s:
+                index_max_area = 1  # top right
+            elif yc < s and xc > s:
+                index_max_area = 2  # bottom left
+            elif yc < s and xc < s:
+                index_max_area = 3  # bottom right
+            indices_new[index_max_area] = indices[index_max_label]
+            indices_new[index_max_label] = indices[index_max_area]
